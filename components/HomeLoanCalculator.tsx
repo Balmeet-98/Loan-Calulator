@@ -8,7 +8,8 @@ import {
   formatCurrency, 
   formatPercentage,
   validateLoanInputs,
-  type LoanInputs 
+  type LoanInputs,
+  type LoanResult
 } from '@/utils/loanCalculations'
 
 export default function HomeLoanCalculator() {
@@ -20,7 +21,7 @@ export default function HomeLoanCalculator() {
   })
 
   const [propertyValue, setPropertyValue] = useState(6000000)
-  const [results, setResults] = useState({
+  const [results, setResults] = useState<LoanResult>({
     emi: 0,
     totalInterest: 0,
     totalAmount: 0,

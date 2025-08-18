@@ -10,7 +10,8 @@ import {
   formatCurrency, 
   formatPercentage,
   validateLoanInputs,
-  type LoanInputs 
+  type LoanInputs,
+  type LoanResult
 } from '@/utils/loanCalculations'
 
 export default function EMICalculator() {
@@ -22,7 +23,7 @@ export default function EMICalculator() {
     prepaymentMonth: 0
   })
 
-  const [results, setResults] = useState({
+  const [results, setResults] = useState<LoanResult>({
     emi: 0,
     totalInterest: 0,
     totalAmount: 0,
@@ -193,7 +194,7 @@ export default function EMICalculator() {
               />
             </div>
 
-            {inputs.prepaymentAmount > 0 && (
+            {(inputs.prepaymentAmount || 0) > 0 && (
               <div className="space-y-3 mt-4">
                 <label className="block text-sm font-medium text-gray-700">
                   Prepayment Month
@@ -283,15 +284,15 @@ export default function EMICalculator() {
                 <span className="text-gray-600">Total Amount:</span>
                 <span className="font-semibold text-purple-600">{formatCurrency(results.totalAmount)}</span>
               </div>
-              {inputs.prepaymentAmount > 0 && (
+              {(inputs.prepaymentAmount || 0) > 0 && (
                 <>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Prepayment Amount:</span>
-                    <span className="font-semibold">{formatCurrency(inputs.prepaymentAmount)}</span>
+                    <span className="font-semibold">{formatCurrency(inputs.prepaymentAmount || 0)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Prepayment Month:</span>
-                    <span className="font-semibold">{inputs.prepaymentMonth}</span>
+                    <span className="font-semibold">{inputs.prepaymentMonth || 0}</span>
                   </div>
                 </>
               )}

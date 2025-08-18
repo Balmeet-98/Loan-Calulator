@@ -10,7 +10,8 @@ import {
   formatCurrency, 
   formatPercentage,
   validateLoanInputs,
-  type LoanInputs 
+  type LoanInputs,
+  type LoanResult
 } from '@/utils/loanCalculations'
 
 export default function PersonalLoanCalculator() {
@@ -21,7 +22,7 @@ export default function PersonalLoanCalculator() {
     processingFee: 25000
   })
 
-  const [results, setResults] = useState({
+  const [results, setResults] = useState<LoanResult>({
     emi: 0,
     totalInterest: 0,
     totalAmount: 0,
@@ -195,13 +196,13 @@ export default function PersonalLoanCalculator() {
             </div>
 
             {/* Processing Fee Info */}
-            {inputs.processingFee > 0 && (
+            {(inputs.processingFee || 0) > 0 && (
               <div className="bg-orange-50 rounded-lg p-4 mt-4">
                 <h4 className="font-semibold text-orange-900 mb-2">Processing Fee Details</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-orange-700">Processing Fee:</span>
-                    <span className="font-semibold text-orange-900">{formatCurrency(inputs.processingFee)}</span>
+                    <span className="font-semibold text-orange-900">{formatCurrency(inputs.processingFee || 0)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-orange-700">Fee Percentage:</span>

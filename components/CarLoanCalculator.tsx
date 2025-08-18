@@ -8,7 +8,8 @@ import {
   formatCurrency, 
   formatPercentage,
   validateLoanInputs,
-  type LoanInputs 
+  type LoanInputs,
+  type LoanResult
 } from '@/utils/loanCalculations'
 
 export default function CarLoanCalculator() {
@@ -20,7 +21,7 @@ export default function CarLoanCalculator() {
   })
 
   const [carValue, setCarValue] = useState(1000000)
-  const [results, setResults] = useState({
+  const [results, setResults] = useState<LoanResult>({
     emi: 0,
     totalInterest: 0,
     totalAmount: 0,
@@ -54,8 +55,8 @@ export default function CarLoanCalculator() {
     }
   }
 
-  const downPaymentPercentage = (inputs.downPayment / carValue) * 100
-  const loanAmount = carValue - inputs.downPayment
+  const downPaymentPercentage = ((inputs.downPayment || 0) / carValue) * 100
+  const loanAmount = carValue - (inputs.downPayment || 0)
 
   return (
     <div className="space-y-8">
